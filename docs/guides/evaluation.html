@@ -1,0 +1,81 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Stage-resolved evaluation | AegisVox</title><link rel="stylesheet" href="../assets/site.css"></head><body><a class="skip" href="#main">Skip to content</a><header><nav class="nav" aria-label="Primary"><a class="brand" href="../index.html">AegisVox</a><span class="wordmark">Oracle Health AI</span><div class="navlinks"><a href="../index.html">Overview</a><a href="https://github.com/spraphul/aegisvox">GitHub ↗</a></div></nav></header><div class="docs-layout"><nav class="sidebar" aria-label="Guides"><a class="" href="architecture.html">One conversation, two interventions</a><a class="" href="backends.html">Backends and resident workers</a><a class="" href="deployment.html">Deployment and service boundaries</a><a class="active" href="evaluation.html">Stage-resolved evaluation</a><a class="" href="quickstart.html">Start with mechanics, then connect models</a><a class="" href="release-scope.html">Release scope and provenance</a><a class="" href="troubleshooting.html">Troubleshooting</a><a class="" href="turn-contract.html">Complete-turn rendering contract</a></nav><main id="main" class="article"><div class="title-rule"></div><h1>Stage-resolved evaluation</h1>
+<h2>Four waveform stages, different questions</h2>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Question</th>
+<th>Do not infer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Original</td>
+<td>What does the same ASR/judge measure before transformation?</td>
+<td>That text self-consistency is a clinical ground truth.</td>
+</tr>
+<tr>
+<td>Voice-converted</td>
+<td>What changes after the shared speaker transformation?</td>
+<td>That a shared-stage EER describes either final lexical renderer.</td>
+</tr>
+<tr>
+<td>Edited complete turn</td>
+<td>Was a planned substitute spoken? Was its original retained?</td>
+<td>Detector recall, complete-conversation removal, or absence from an uncertain judgment.</td>
+</tr>
+<tr>
+<td>Reconstructed conversation</td>
+<td>What is present in the exact final waveform?</td>
+<td>That generated-turn scores automatically transfer to this stage.</td>
+</tr>
+</tbody>
+</table>
+<h2>Endpoints</h2>
+<p><strong>Lexical:</strong> retain separate <code>realized</code>, <code>not_realized</code>, and <code>uncertain</code> outcomes and
+original-identifier retention. Keep tolerable ASR spelling/phonetic variants explicit
+in the adjudication protocol. Measure detection separately against independent source
+annotations if available. Planned-edit realization cannot establish detector recall.</p>
+<p><strong>Speaker:</strong> state enrollment and test waveform stages, same/different-speaker trial
+construction, session conditions, backend, score direction, and attacker knowledge.
+Retrieval cosine distance is not verification performance. A score-direction sensitivity
+analysis is not a trained attacker adapted to converted speech.</p>
+<p><strong>Clinical:</strong> freeze a source inventory of clinical atomic propositions (CAPs) before
+judging the transformed transcript. A CAP expresses one fact with its speaker role,
+negation, timing, dose/value, and uncertainty. Report preserved, partial, missing,
+contradicted, and uncertain labels, and separate unsupported insertions. Model judgments
+are not verified clinical harms. Use a fresh original-audio ASR control and an independent
+judge to expose measurement dependence.</p>
+<p><strong>Interaction/audio:</strong> report completeness, duration, intelligibility, perceived
+naturalness, attribution, and acoustic cues separately. Signal-quality heuristics are
+not listener ratings. Missing measurements are not zero.</p>
+<h2>Released measurement code</h2>
+<p>The <code>scripts/eval</code> directory includes modular research implementations:</p>
+<ul>
+<li><code>compute_matched_asr_wer_cer.py</code>: paired original/output transcription comparisons.</li>
+<li><code>compute_asv_privacy.py</code>, <code>compute_asv_privacy_independent.py</code>: speaker verification.</li>
+<li><code>run_item_level_relex_adjudication.py</code>: item-level lexical judgments.</li>
+<li><code>run_clinical_cap_extraction.py</code>, <code>run_clinical_cap_target_adjudication.py</code>: source
+  proposition inventory and transformed-transcript assessment.</li>
+<li><code>run_clinical_note_generation.py</code>, <code>run_clinical_note_pair_adjudication.py</code>: note studies.</li>
+<li><code>compute_primary_model_estimands.py</code>: paired estimates with explicit population checks.</li>
+<li><code>compute_retrieval_assignment_metrics.py</code>: assignment distributions and constraint checks.</li>
+</ul>
+<p>Run each with <code>--help</code> for its concrete input schema. Model-backed scripts require their
+provider/model configuration; optional GPU modules are not installed by the base package.
+Several older diagnostic scripts explicitly compute proxies or approximate metrics.
+Their inclusion is not an endorsement as clinical truth or as the final paper protocol.</p>
+<h2>Statistical reporting</h2>
+<p>Register populations and match by stable IDs, not row order. Preserve failures and
+report missingness. Distinguish item-weighted rates from conversation-weighted rates.
+When edits share a conversation, use conversation-clustered paired inference for that
+estimand. Clearly identify historical edit-IID intervals rather than relabeling them.
+A non-significant difference is not evidence of equivalence. Report model ordering,
+judge agreement, and clinical correctness as different quantities.</p>
+<h2>Reproducibility boundary</h2>
+<p>This public code release is not a frozen results database or a one-command reexecution
+of the publication. It omits licensed audio, weights, item-level transcripts, and private
+human-study exports. The camera-ready evidence package remains separate. Reproducing a
+new run requires authorized data, exact models/prompts, trial definitions, seeds, and
+artifact hashes. Do not compare a newly selected sample to the published full population
+as though the conditions were matched.</p></main></div></body></html>

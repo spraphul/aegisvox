@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AegisVox complete-turn manifest",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "converted_audio",
+    "turns"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "aegisvox.complete_turns.v1"
+    },
+    "converted_audio": {
+      "type": "string",
+      "minLength": 1
+    },
+    "turns": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "turn_id",
+          "speaker_id",
+          "start_sec",
+          "end_sec"
+        ],
+        "properties": {
+          "turn_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "speaker_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "start_sec": {
+            "type": "number",
+            "minimum": 0
+          },
+          "end_sec": {
+            "type": "number",
+            "minimum": 0
+          },
+          "source_transcript": {
+            "type": "string",
+            "minLength": 1
+          },
+          "target_transcript": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "dependentRequired": {
+          "target_transcript": [
+            "source_transcript"
+          ]
+        }
+      }
+    }
+  },
+  "$comment": "Runtime also validates unique IDs, ordered exclusive sample intervals, finite boundaries, and WAV duration."
+}

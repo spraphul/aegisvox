@@ -1,0 +1,58 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Troubleshooting | AegisVox</title><link rel="stylesheet" href="../assets/site.css"></head><body><a class="skip" href="#main">Skip to content</a><header><nav class="nav" aria-label="Primary"><a class="brand" href="../index.html">AegisVox</a><span class="wordmark">Oracle Health AI</span><div class="navlinks"><a href="../index.html">Overview</a><a href="https://github.com/spraphul/aegisvox">GitHub ↗</a></div></nav></header><div class="docs-layout"><nav class="sidebar" aria-label="Guides"><a class="" href="architecture.html">One conversation, two interventions</a><a class="" href="backends.html">Backends and resident workers</a><a class="" href="deployment.html">Deployment and service boundaries</a><a class="" href="evaluation.html">Stage-resolved evaluation</a><a class="" href="quickstart.html">Start with mechanics, then connect models</a><a class="" href="release-scope.html">Release scope and provenance</a><a class="active" href="troubleshooting.html">Troubleshooting</a><a class="" href="turn-contract.html">Complete-turn rendering contract</a></nav><main id="main" class="article"><div class="title-rule"></div><h1>Troubleshooting</h1>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Check</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Demo refuses the output directory</td>
+<td>Choose a new directory. Existing runs are never overwritten.</td>
+</tr>
+<tr>
+<td>Empty or unplayable WAV</td>
+<td>Check frame count, sample format, channels, and that generation completed. A filename is not evidence of audio.</td>
+</tr>
+<tr>
+<td>F5 command fails</td>
+<td>Verify its separate Python environment, GPU/Torch compatibility, checkpoint access, FFmpeg/ffprobe, and upstream dependencies.</td>
+</tr>
+<tr>
+<td>Format mismatch</td>
+<td>The complete-turn API requires matching PCM. Resample explicitly in the adapter and record it.</td>
+</tr>
+<tr>
+<td>Model returns silence</td>
+<td>Keep the failure. Inspect reference conditioning and model output; do not label an unedited source turn as a successful replacement.</td>
+</tr>
+<tr>
+<td>Wrong words after editing</td>
+<td>Give the entire turn and its full revised transcript. Check alignment, language, and ASR separately.</td>
+</tr>
+<tr>
+<td>Changed speaker/accent</td>
+<td>Check consistent assignments, reference quality, embeddings/metadata, and post-render voice drift. Retrieval compatibility is not a guarantee.</td>
+</tr>
+<tr>
+<td>API has no GPU activity</td>
+<td>The API is an orchestrator. Provision and connect workers/model services separately.</td>
+</tr>
+<tr>
+<td>CLI returns only an error type</td>
+<td>Console output avoids raw text/secrets. Inspect protected request/artifact files and reproduce the model call in a protected environment.</td>
+</tr>
+<tr>
+<td>Repeated model loads</td>
+<td>Use resident HTTP or in-process workers; the example command adapter is intentionally one-shot.</td>
+</tr>
+<tr>
+<td>New metrics differ from the paper</td>
+<td>Check waveform stage, corpus revisions, settings, prompts, failures, denominator, and micro/macro weighting.</td>
+</tr>
+</tbody>
+</table>
+<p>Do not post clinical recordings, transcripts, API keys, or reviewer identifiers in
+GitHub issues. Make a minimal synthetic reproduction and report package/model versions,
+input format, and the exception type. Review <a href="https://github.com/spraphul/aegisvox/blob/main/SECURITY.md">security guidance</a>.</p></main></div></body></html>

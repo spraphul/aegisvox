@@ -1,0 +1,7 @@
+include README.md LICENSE NOTICE CITATION.cff DATA.md SECURITY.md CONTRIBUTING.md CHANGELOG.md
+recursive-include examples *.py *.json
+recursive-include schemas *.json *.sql
+recursive-include scripts *.py
+recursive-include docs *.md *.json
+recursive-exclude * __pycache__
+global-exclude *.py[cod]

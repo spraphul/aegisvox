@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aegisvox"
+version = "0.2.0"
+description = "Service-oriented clinical voice de-identification research framework."
+requires-python = ">=3.10"
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+dependencies = [
+  "PyYAML>=6.0",
+  "audioop-lts>=0.2.1; python_version >= '3.13'",
+]
+
+[project.optional-dependencies]
+docs = ["Markdown>=3.6,<4"]
+dev = ["pytest>=8", "httpx>=0.27", "httpx2>=2.0", "soundfile>=0.12", "build>=1"]
+api = ["fastapi>=0.110", "uvicorn>=0.29", "httpx>=0.27", "httpx2>=2.0"]
+voicepool = ["speechbrain>=1.0", "faiss-cpu>=1.8", "numpy>=1.24"]
+voicequality = ["torch>=2.3", "torchaudio>=2.3", "transformers>=4.45", "fastapi>=0.110", "uvicorn>=0.29"]
+asr = ["openai>=1.88", "faster-whisper>=1.1"]
+asr-canary = ["nemo-toolkit[asr]>=2.0"]
+concept-extraction = ["torch>=2.3", "transformers>=4.45", "spacy>=3.7"]
+postgres = ["psycopg[binary]>=3.2"]
+evaluation = ["numpy>=1.26", "pandas>=2.2", "scipy>=1.12", "statsmodels>=0.14.5"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[project.scripts]
+aegisvox = "aegisvox.__main__:main"
+
+[project.urls]
+Repository = "https://github.com/spraphul/aegisvox"
+Documentation = "https://github.com/spraphul/aegisvox/tree/main/docs"
+
+[tool.setuptools.packages.find]
+where = ["src"]

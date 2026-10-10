@@ -1,0 +1,98 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Backends and resident workers | AegisVox</title><link rel="stylesheet" href="../assets/site.css"></head><body><a class="skip" href="#main">Skip to content</a><header><nav class="nav" aria-label="Primary"><a class="brand" href="../index.html">AegisVox</a><span class="wordmark">Oracle Health AI</span><div class="navlinks"><a href="../index.html">Overview</a><a href="https://github.com/spraphul/aegisvox">GitHub ↗</a></div></nav></header><div class="docs-layout"><nav class="sidebar" aria-label="Guides"><a class="" href="architecture.html">One conversation, two interventions</a><a class="active" href="backends.html">Backends and resident workers</a><a class="" href="deployment.html">Deployment and service boundaries</a><a class="" href="evaluation.html">Stage-resolved evaluation</a><a class="" href="quickstart.html">Start with mechanics, then connect models</a><a class="" href="release-scope.html">Release scope and provenance</a><a class="" href="troubleshooting.html">Troubleshooting</a><a class="" href="turn-contract.html">Complete-turn rendering contract</a></nav><main id="main" class="article"><div class="title-rule"></div><h1>Backends and resident workers</h1>
+<h2>Component roles</h2>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Operation</th>
+<th>Public integration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pyannote / alternate diarization backend</td>
+<td>Speaker turn boundaries and labels</td>
+<td><code>diarization.py</code>: local, command, HTTP interfaces.</td>
+</tr>
+<tr>
+<td>faster-whisper / Canary</td>
+<td>Audio to timestamped text</td>
+<td><code>asr_alignment.py</code>: explicit backend selection.</td>
+</tr>
+<tr>
+<td>SpeechBrain ECAPA</td>
+<td>Audio to speaker embedding</td>
+<td><code>speaker_profile.py</code>: local or HTTP service.</td>
+</tr>
+<tr>
+<td>Voice-pool retrieval</td>
+<td>Embeddings and metadata to assigned references</td>
+<td><code>voice_pool.py</code>, <code>voice_pool_faiss.py</code>, <code>assignment.py</code>.</td>
+</tr>
+<tr>
+<td>SeedVC</td>
+<td>Source turn + assigned reference to converted speech</td>
+<td><code>SeedVCCommandBackend</code>, <code>SeedVCHTTPBackend</code>.</td>
+</tr>
+<tr>
+<td>Text LLM</td>
+<td>Transcript to identifier/replacement plan</td>
+<td><code>OpenAILLMTextDeIDBackend</code>; configure the provider/model explicitly.</td>
+</tr>
+<tr>
+<td>VoiceCraft</td>
+<td>Audio/text-conditioned lexical edit</td>
+<td><code>VoiceCraftCommandBackend</code>, <code>VoiceCraftHTTPBackend</code>.</td>
+</tr>
+<tr>
+<td>F5-TTS</td>
+<td>Converted voice reference + revised words to a complete turn</td>
+<td><code>examples/f5_turn_worker.py</code>, complete-turn renderer API.</td>
+</tr>
+</tbody>
+</table>
+<p>These are adapter boundaries, not bundled model servers. Obtain model packages and
+weights from their upstream maintainers. The service queue's bundled lexical job uses
+the VoiceCraft adapter; it does not automatically route to the separate F5 example.
+Register your chosen complete-turn worker explicitly when integrating the two APIs.</p>
+<h2>Real F5-TTS example</h2>
+<p>Follow the <a href="https://github.com/SWivid/F5-TTS">official F5-TTS setup</a> for device-matched
+Torch and FFmpeg. Install AegisVox into that model environment too. The example uses
+<code>F5TTS_v1_Base</code> and 16 inference steps, from the research runner. This is a model label,
+not a pinned checkpoint digest: record the exact installed revision for a new study.
+Review the code <strong>and checkpoint</strong> license; they are not necessarily the same.</p>
+<pre><code class="language-python">from pathlib import Path
+from examples.f5_turn_worker import F5TurnRenderer
+from aegisvox.complete_turns import render_conversation
+
+renderer = F5TurnRenderer(device='cuda', nfe_step=16)  # load once
+for manifest, destination in jobs:
+    render_conversation(Path(manifest), Path(destination), renderer)
+</code></pre>
+<p>Run from the repository root. The object stays resident for all turns and conversations
+handled by that worker. Use one such process per allocated GPU and a bounded queue.
+The small command example loads per process; do not mistake it for the resident mode.
+Upstream preprocessing can crop or normalize a supplied reference internally; AegisVox
+supplies the entire turn but does not claim every upstream model attends to every sample.</p>
+<p>The example adapter explicitly resamples native output if needed, writes mono PCM16,
+and returns the native/output rates. The reconstruction path then inserts that file
+exactly. Upstream F5 inference is not executed by CPU unit tests.</p>
+<h2>SeedVC and VoiceCraft</h2>
+<p>Use the interfaces in <code>voice_conversion.py</code> and <code>speech_editing.py</code> with the
+<a href="https://github.com/Plachtaa/seed-vc">official SeedVC</a> and
+<a href="https://github.com/jasonppy/VoiceCraft">official VoiceCraft</a> repositories.
+Commands are operator-supplied adapters, not guaranteed upstream CLI spellings.
+VoiceCraft also requires correctly aligned edit positions; providing a complete turn
+does not remove that requirement. Do not silently use a tiny lexical crop as its only
+reference. Verify target-speaker consistency after synthesis.</p>
+<h2>Text planning</h2>
+<p>Supply provider credentials through runtime environment variables, not YAML. Configure
+<code>AEGISVOX_TEXT_DEID_MODEL</code> explicitly; the paper used GPT-5.4 for the relevant text
+judgments/planning. <code>OPENAI_BASE_URL</code> supports an authorized compatible provider. The
+repository does not give access to any paid or internal API. Review provider retention
+and data-transfer policies before sending any clinical text.</p>
+<h2>Model isolation</h2>
+<p>Keep ASR, speaker embedding, SeedVC, F5, and VoiceCraft environments separate. Pin source
+revisions, checkpoint hashes, CUDA, Torch, codec, prompt, and inference settings. Caches,
+weights, audio, logs, and artifacts should live on an operator-selected data volume.
+No local workstation or private GPU-server path is assumed by these instructions.</p></main></div></body></html>

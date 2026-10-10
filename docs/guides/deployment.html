@@ -1,0 +1,45 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Deployment and service boundaries | AegisVox</title><link rel="stylesheet" href="../assets/site.css"></head><body><a class="skip" href="#main">Skip to content</a><header><nav class="nav" aria-label="Primary"><a class="brand" href="../index.html">AegisVox</a><span class="wordmark">Oracle Health AI</span><div class="navlinks"><a href="../index.html">Overview</a><a href="https://github.com/spraphul/aegisvox">GitHub ↗</a></div></nav></header><div class="docs-layout"><nav class="sidebar" aria-label="Guides"><a class="" href="architecture.html">One conversation, two interventions</a><a class="" href="backends.html">Backends and resident workers</a><a class="active" href="deployment.html">Deployment and service boundaries</a><a class="" href="evaluation.html">Stage-resolved evaluation</a><a class="" href="quickstart.html">Start with mechanics, then connect models</a><a class="" href="release-scope.html">Release scope and provenance</a><a class="" href="troubleshooting.html">Troubleshooting</a><a class="" href="turn-contract.html">Complete-turn rendering contract</a></nav><main id="main" class="article"><div class="title-rule"></div><h1>Deployment and service boundaries</h1>
+<p>AegisVox is a research framework, not a production-certified clinical service.
+Run inside a protected environment with authorized recordings and reference voices.</p>
+<h2>Control-plane API</h2>
+<pre><code class="language-bash">pip install -e '.[api]'
+export AEGISVOX_ARTIFACT_ROOT=/secure/data/aegisvox/artifacts
+export AEGISVOX_METADATA_DB=/secure/data/aegisvox/metadata.sqlite3
+aegisvox serve --host 127.0.0.1 --port 8080
+</code></pre>
+<p>Open <code>http://127.0.0.1:8080/docs</code> for the actual generated API schema. This starts the
+orchestrator, <strong>not</strong> any speech model. The SQLite metadata store and local artifact
+store are useful on a single host. The local store maps <code>s3://bucket/key</code> identifiers
+onto files; it does not connect to cloud S3. A Postgres metadata adapter is also supplied.</p>
+<pre><code class="language-bash">aegisvox enqueue /secure/data/conversation.wav \
+  --root /secure/data/aegisvox/artifacts --voice-pool my-authorized-pool --language en
+</code></pre>
+<p>Enqueuing does not start inference. Use the same metadata database for API and workers.
+The CLI places it at <code>&lt;root&gt;/metadata.sqlite3</code>; set the API variable to that path if
+combining these commands. Service jobs require real backend configuration and artifacts.</p>
+<pre><code class="language-bash">export AEGISVOX_WORKER_COMMAND='aegisvox service-job'
+aegisvox worker --root /secure/data/aegisvox/artifacts --service diarization
+</code></pre>
+<p>This claims one job. Run a supervised loop or process manager for persistent workers.
+The generic command worker starts one subprocess per job; put the heavy model in an
+HTTP service, or use an in-process resident adapter, to avoid repeated model loading.
+The queue handles lifecycle/metadata, not automatic GPU placement or model provisioning.</p>
+<h2>Configuration and boundaries</h2>
+<ul>
+<li><code>.env.example</code> lists names only. Load values through your process manager or secret
+  manager. The CLI does not automatically source arbitrary shell or <code>.env</code> files.</li>
+<li>Explicitly select all model revisions, languages, replacement policy, and frontend
+  settings. Do not assume the legacy service engine defaults reproduce the paper.</li>
+<li>Model commands execute trusted code. Never accept executable templates from clients.</li>
+<li>Filesystem/URI APIs are trusted-operator interfaces. Do not expose them directly to
+  untrusted users or the public internet. Enforce authentication, authorization, TLS,
+  allowed paths, retention, rate limits, and request-size limits in your deployment.</li>
+<li>Set model caches and temporary directories on a capacity-managed volume; avoid root
+  disk exhaustion. Stop workers gracefully; keep their configs and artifact manifests.</li>
+<li>Use encrypted storage and separate keys for data, model services, and text providers.</li>
+<li>Console credential redaction is not proof that transcripts or PHI are removed from logs.</li>
+</ul>
+<h2>Experiment records</h2>
+<p>Record every backend revision, prompt version, seed, GPU environment, error, retry,
+and exact waveform stage. Keep failed attempts in the population. A successful process
+exit and a completed metadata status do not certify lexical removal or clinical fidelity.</p></main></div></body></html>

@@ -1,0 +1,5 @@
+{
+  "name": "F5-TTS-complete-turn",
+  "argv": ["python", "examples/f5_turn_worker.py", "--request", "{request}", "--output", "{output}"],
+  "timeout_sec": 900
+}

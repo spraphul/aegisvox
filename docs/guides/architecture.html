@@ -1,0 +1,47 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>One conversation, two interventions | AegisVox</title><link rel="stylesheet" href="../assets/site.css"></head><body><a class="skip" href="#main">Skip to content</a><header><nav class="nav" aria-label="Primary"><a class="brand" href="../index.html">AegisVox</a><span class="wordmark">Oracle Health AI</span><div class="navlinks"><a href="../index.html">Overview</a><a href="https://github.com/spraphul/aegisvox">GitHub ↗</a></div></nav></header><div class="docs-layout"><nav class="sidebar" aria-label="Guides"><a class="active" href="architecture.html">One conversation, two interventions</a><a class="" href="backends.html">Backends and resident workers</a><a class="" href="deployment.html">Deployment and service boundaries</a><a class="" href="evaluation.html">Stage-resolved evaluation</a><a class="" href="quickstart.html">Start with mechanics, then connect models</a><a class="" href="release-scope.html">Release scope and provenance</a><a class="" href="troubleshooting.html">Troubleshooting</a><a class="" href="turn-contract.html">Complete-turn rendering contract</a></nav><main id="main" class="article"><div class="title-rule"></div><h1>One conversation, two interventions</h1>
+<h2>What enters and leaves</h2>
+<p>The research pipeline accepts long-form speech. It produces a transformed conversation,
+transcript/replacement artifacts, speaker assignments, and stage-specific measurements.
+The framework seeks to change vocal identity and protected lexical content while retaining
+useful surrounding evidence. Preservation must be measured, not assumed.</p>
+<h2>Identity transformation</h2>
+<ol>
+<li><strong>Diarization and transcription</strong> estimate who spoke when and what was said. Errors
+   here propagate into speaker profiles, target assignment, lexical planning, and editing.</li>
+<li><strong>Speaker profiling and retrieval</strong> build embeddings and use available metadata to
+   choose voice references. Source-to-reference distance and reference-to-reference
+   distinctiveness are separate constraints. A consistent assignment is reused for each
+   source speaker throughout a conversation. A retrieval distance is not an ASV EER.</li>
+<li><strong>SeedVC</strong> converts every speaker turn to its assigned voice. It does not detect
+   identifiers or decide which words should change.</li>
+</ol>
+<h2>Lexical transformation</h2>
+<ol>
+<li><strong>ASR and LLM planning</strong> produce a transcript and document-consistent synthetic
+   replacements in the transcript's language. Detection and planning are distinct from
+   whether the planned words are actually spoken later.</li>
+<li><strong>Complete-turn rendering</strong> gives the editor the converted speaker turn, its complete
+   source transcript, and its complete revised transcript. F5-TTS synthesizes a turn;
+   VoiceCraft uses audio/text conditioning to edit speech. Only affected turns are
+   lexically rerendered. The framework does not define F5-TTS as the entire system.</li>
+<li><strong>Reconstruction</strong> inserts rendered turns into converted context. The non-edited
+   context must come from the voice-converted audio, not the original identifiable voice.</li>
+</ol>
+<h2>Public interfaces</h2>
+<p>The package exposes two levels:</p>
+<ul>
+<li><strong>Service components:</strong> profiles, retrieval, conversion, ASR, planning, editing,
+  artifact storage, events, queue, and control-plane API.</li>
+<li><strong>Complete-turn assembly:</strong> a narrow renderer-independent interface for a converted
+  waveform plus revised turn transcripts. It preserves intervening samples and records
+  exact output intervals and hashes. This interface does not run the upstream stages.</li>
+</ul>
+<p>The service engine retains configurable historical research modes. Its default workflow
+is not the exact fixed paper experiment. Use explicit backend, model, language, and
+policy settings, and label baseline/ablation configurations. Do not silently substitute
+legacy runtime quality proxies for the clinical study endpoints.</p>
+<h2>Evaluation is a separate path</h2>
+<p>Score original audio, voice-converted audio, generated edits, and final reconstructed
+speech separately. Keep failures and uncertainty in the registered population. The
+complete-turn interface never uses an ASR score to reject an otherwise valid WAV or
+silently replace it with source speech. Structural failures stop assembly visibly.</p></main></div></body></html>

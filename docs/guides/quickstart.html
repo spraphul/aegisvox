@@ -1,0 +1,35 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Start with mechanics, then connect models | AegisVox</title><link rel="stylesheet" href="../assets/site.css"></head><body><a class="skip" href="#main">Skip to content</a><header><nav class="nav" aria-label="Primary"><a class="brand" href="../index.html">AegisVox</a><span class="wordmark">Oracle Health AI</span><div class="navlinks"><a href="../index.html">Overview</a><a href="https://github.com/spraphul/aegisvox">GitHub ↗</a></div></nav></header><div class="docs-layout"><nav class="sidebar" aria-label="Guides"><a class="" href="architecture.html">One conversation, two interventions</a><a class="" href="backends.html">Backends and resident workers</a><a class="" href="deployment.html">Deployment and service boundaries</a><a class="" href="evaluation.html">Stage-resolved evaluation</a><a class="active" href="quickstart.html">Start with mechanics, then connect models</a><a class="" href="release-scope.html">Release scope and provenance</a><a class="" href="troubleshooting.html">Troubleshooting</a><a class="" href="turn-contract.html">Complete-turn rendering contract</a></nav><main id="main" class="article"><div class="title-rule"></div><h1>Start with mechanics, then connect models</h1>
+<h2>Install</h2>
+<p>Use Python 3.10 or newer. The lightweight package does not install CUDA models.
+Run commands from the repository root unless a guide says otherwise.</p>
+<pre><code class="language-bash">python3 -m venv .venv
+source .venv/bin/activate
+pip install -e '.[dev,evaluation]'
+aegisvox --help
+</code></pre>
+<p>The base dependency is PyYAML, plus the Python audioop compatibility package on
+Python 3.13+. The evaluation extra adds NumPy, pandas, SciPy, and statsmodels.
+The API extra adds FastAPI, Uvicorn, and HTTPX. Install each model's dependencies
+in a separate environment to avoid incompatible Torch, audio, and codec packages.</p>
+<h2>Run the offline example</h2>
+<pre><code class="language-bash">aegisvox demo --output runs/demo-001
+cat runs/demo-001/result/reconstruction.json
+pytest -q
+</code></pre>
+<p>Use a new directory for each run. The command refuses to overwrite existing output.
+Listen only to verify a signal exists: these are tones, not generated speech.
+<code>sample_equivalent: true</code> means the inserted PCM samples equal the rendered file's
+samples. It says nothing about the words, identity, or clinical meaning.</p>
+<h2>Supply actual speech</h2>
+<p>Prepare a PCM WAV conversation after voice conversion. Create a manifest matching
+<code>examples/complete_turns.json</code>. Times refer to that converted waveform, not to a
+pre-conversion waveform whose length may differ. Each edited entry contains the
+<strong>whole turn's</strong> source and revised transcript. The complete converted turn is
+cropped as the renderer reference. No user voice sample is bundled.</p>
+<pre><code class="language-bash">aegisvox render-turns /secure/work/turns.json \
+  --renderer examples/f5_renderer.json --output /secure/work/render-001
+</code></pre>
+<p>Configure the renderer's executable to its dedicated model environment. Real-model
+execution is not covered by the offline test; see <a href="backends.html">backend provisioning</a>.
+Rendering and evaluation are separate operations. Do not mistake <code>assembled</code> for a
+privacy, clinical, or production-readiness verdict.</p></main></div></body></html>

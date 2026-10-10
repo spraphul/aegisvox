@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "Please cite this software when you use AegisVox."
+title: "AegisVox: Factorized Privacy and Clinical Preservation for Long-Form Speech"
+type: software
+version: 0.2.0
+license: Apache-2.0
+repository-code: "https://github.com/spraphul/aegisvox"
+authors:
+  - family-names: Singh
+    given-names: Praphul
+  - family-names: Agarwal
+    given-names: Akshat
+  - family-names: Ghosh
+    given-names: Ratul
+  - family-names: Kanuga
+    given-names: Aashna
+  - family-names: Khatwani
+    given-names: Devashish
+  - family-names: Dwarakanath
+    given-names: Anurag
+  - family-names: Gadde
+    given-names: Sri
+  - family-names: Kenthapadi
+    given-names: Krishnaram

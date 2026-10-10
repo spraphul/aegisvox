@@ -1,0 +1,26 @@
+{
+  "release": "0.2.0",
+  "date": "2026-10-09",
+  "license": "Apache-2.0 (author-approved)",
+  "tests": {
+    "passed": 179,
+    "skipped": 0
+  },
+  "checks": [
+    "Editable installation in an isolated environment",
+    "Standalone wheel import and offline demo outside the source tree",
+    "sdist and wheel build",
+    "README and guide relative-link scan",
+    "Credential/private-path and restricted-artifact scan",
+    "CLI/demo/reconstruction/API-auth tests",
+    "Browser visual inspection of homepage and guide layouts"
+  ],
+  "video": {
+    "duration_seconds": 78,
+    "audio_streams": 0,
+    "file": "docs/assets/aegisvox-demo.mp4",
+    "sha256": "3131f6a3bd645684824f56f475f528744c93ddd48cd47d668c74b9ebe6633983"
+  },
+  "gpu_model_execution_tested_in_this_release": false,
+  "publication_model_results_changed": false
+}

@@ -1,0 +1,11 @@
+{
+  "schema_version": "aegisvox.complete_turns.v1",
+  "converted_audio": "converted_conversation.wav",
+  "turns": [
+    {"turn_id": "01", "speaker_id": "A", "start_sec": 0.5, "end_sec": 3.0},
+    {"turn_id": "02", "speaker_id": "B", "start_sec": 3.3, "end_sec": 7.5,
+     "source_transcript": "My name is Alex Chen, and the cough started on Monday.",
+     "target_transcript": "My name is Jamie Lee, and the cough started on Monday."},
+    {"turn_id": "03", "speaker_id": "A", "start_sec": 8.0, "end_sec": 10.0}
+  ]
+}
