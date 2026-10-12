@@ -16,6 +16,8 @@ checkpoints/
 .cache/
 *.wav
 *.mp3
+!docs/assets/audio/example-??-original.mp3
+!docs/assets/audio/example-??-final.mp3
 *.ckpt
 *.safetensors
 *.sqlite3

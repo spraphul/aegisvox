@@ -10,9 +10,13 @@
 - The approved 78-second silent AegisVox technical demonstration, its existing cover image,
   and a visual documentation site. No stock-photo conference outro is bundled.
 
+- Ten author-cleared original/final full-conversation demo pairs, with exact-file
+  checksums, source attribution, and licenses. See [listening examples](audio-examples.md).
+
 ## Excluded
 
-Source/reference/clinical audio, transformed research recordings, model weights,
+Apart from the ten explicitly listed public demo pairs, source recordings and
+transformed research recordings are excluded. Reference voices, private clinical audio, model weights,
 credentials, private host configuration, raw reviewer ratings/access codes, confidential
 reviews, unpublished manuscript source, and research run directories are not bundled.
 These omissions do not mean a result is zero or that a full inference run is local-only.

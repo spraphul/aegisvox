@@ -16,6 +16,8 @@ jobs:
       - run: python -m pip install -e '.[dev,evaluation,api,docs]'
       - run: pytest -q
       - run: aegisvox demo --output runs/ci-demo
+      - run: python scripts/build_audio_gallery.py
       - run: python scripts/build_docs.py
+      - run: git diff --exit-code -- docs/index.html docs/guides
       - run: python scripts/check_release.py
       - run: python -m build

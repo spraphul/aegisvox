@@ -1,0 +1,78 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Full-conversation listening examples | AegisVox</title><link rel="stylesheet" href="../assets/site.css"></head><body><a class="skip" href="#main">Skip to content</a><header><nav class="nav" aria-label="Primary"><a class="brand" href="../index.html">AegisVox</a><span class="wordmark">Oracle Health AI</span><div class="navlinks"><a href="../index.html">Overview</a><a href="https://github.com/spraphul/aegisvox">GitHub ↗</a></div></nav></header><div class="docs-layout"><nav class="sidebar" aria-label="Guides"><a class="" href="architecture.html">One conversation, two interventions</a><a class="active" href="audio-examples.html">Full-conversation listening examples</a><a class="" href="backends.html">Backends and resident workers</a><a class="" href="deployment.html">Deployment and service boundaries</a><a class="" href="evaluation.html">Stage-resolved evaluation</a><a class="" href="quickstart.html">Start with mechanics, then connect models</a><a class="" href="release-scope.html">Release scope and provenance</a><a class="" href="troubleshooting.html">Troubleshooting</a><a class="" href="turn-contract.html">Complete-turn rendering contract</a></nav><main id="main" class="article"><div class="title-rule"></div><h1>Full-conversation listening examples</h1>
+<p><a href="../index.html#listen">Open the ten-pair gallery</a>.</p>
+<p>Each pair contains the <strong>full original input</strong> and the <strong>full final reconstructed
+conversation</strong>. The final recording follows SeedVC voice conversion, source-language
+identifier replacement planning, and F5-TTS complete-turn lexical editing. It is not
+an intermediate voice-conversion output. The unchanged technical film remains silent.</p>
+<h2>What these examples show</h2>
+<p>The gallery includes three PriMock57 consultations, four Fareez respiratory interviews,
+and three SIMSAMU dispatch calls: seven English and three French conversations.
+Recordings range from roughly two to fifteen minutes. Model-detected speaker counts
+range from two to four and edited-turn counts from one to six.</p>
+<p>Use headphones. Listen to the original and final versions separately, then compare
+voice identity, delivery, pacing, and conversational continuity. Start each player
+independently: lexical rendering can change duration, so identical clock times are
+not guaranteed to refer to identical words. The page pauses other players when a new
+one starts. Every pair also has direct MP3 and download links.</p>
+<p>These are <strong>curated demonstrations, not a random evaluation sample, a perceptual
+quality ranking, or a privacy guarantee</strong>. All source recordings are public simulated
+or non-patient clinical conversations, not recordings from real-patient encounters.
+Dataset setting and language are confounded and should not be interpreted as a
+controlled language comparison. No unverified gender, age, or accent labels are shown.</p>
+<h2>Selection and technical checks</h2>
+<p>Selection starts with the existing 390-conversation evaluated F5-TTS condition.
+Eligible recordings have a complete final reconstruction, at least one rendered
+lexical edit, no failed edited turns, at least two model-detected speakers, a
+final/pre-edit-converted duration ratio within 0.95 to 1.08, and previously verified
+sample lineage.
+There are 204 eligible recordings: 55 PriMock57, 101 Fareez, and 48 SIMSAMU.</p>
+<p>We selected examples near the 10th, 50th, and 90th duration percentiles within each
+eligible dataset, with four Fareez positions near the 10th, 35th, 65th, and 90th
+percentiles. The middle SIMSAMU position was replaced by a four-detected-speaker
+example to broaden conversational structure. The exact IDs are in the manifest.
+No clinical-preservation or replacement-realization score was optimized, and no
+new human listening score is claimed. This eligibility filter excludes failed
+reconstructions, so the gallery cannot estimate failure rates.</p>
+<p>For every final WAV, we checked its hash against the frozen reconstruction record.
+All 20 exported files were decoded and checked for positive duration and non-silence.
+Playback uses 128 kb/s MP3 compression. Gallery export does not trim passages, remove
+silences, normalize gain, denoise, or alter speed. The input WAV can itself be a
+processed dataset input, as with the constructed PriMock57 mixtures. Reported study
+measurements use WAV artifacts, not compressed browser playback.</p>
+<p><a href="../assets/audio/examples.json">The public manifest</a> records source IDs, source
+revisions, original/final durations, file sizes, and MP3 and WAV checksums. These
+identify the exact examples without disclosing private storage paths or voice references.</p>
+<h2>Source attribution and permissions</h2>
+<h3>PriMock57</h3>
+<p>Alex Papadopoulos Korfiatis, Francesco Moramarco, Radmila Sarac, and Aleksandar Savkov;
+Babylon Health. <em>PriMock57: A Dataset Of Primary Care Mock Consultations</em> (2022).
+<a href="https://github.com/babylonhealth/primock57">Dataset and citation</a>.
+Frozen revision: <code>cd2ac707ad03cb4d2531f4ec6b90c659bf4357c5</code>.
+<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
+<p>Original gallery inputs are constructed mixtures of the corresponding doctor and
+patient role tracks. Final versions additionally transform voice identity and edit
+planned lexical content. Both are compressed to MP3 for playback. These are adaptations;
+the original dataset creators do not endorse AegisVox. The upstream license is retained
+in <a href="../assets/audio/PRIMOCK57-LICENSE.txt">PRIMOCK57-LICENSE.txt</a>.</p>
+<h3>Fareez respiratory interviews</h3>
+<p>Faiha Fareez and colleagues, <em>Collection of simulated medical exams</em>.
+<a href="https://doi.org/10.6084/m9.figshare.16550013.v1">Figshare dataset</a>.
+<a href="https://creativecommons.org/publicdomain/zero/1.0/">CC0 1.0</a>.
+Source IDs identify recordings in the released respiratory interview collection.
+Final versions transform voice identity and planned lexical content; browser copies
+are MP3 exports of the evaluated input and reconstructed WAVs.</p>
+<h3>SIMSAMU</h3>
+<p>HeKA Research Team, <em>Simsamu dataset</em> (2023).
+<a href="https://huggingface.co/datasets/medkit/simsamu">Dataset</a>.
+Frozen revision: <code>6b639431f658d636c30dbf342074d723bf303e0f</code>.
+MIT License, copyright (c) 2023 HeKA Research Team. The complete copyright and
+permission notice is retained in <a href="../assets/audio/SIMSAMU-LICENSE.txt">SIMSAMU-LICENSE.txt</a>.
+Final versions transform voice identity and planned lexical content; all gallery
+files are MP3 playback adaptations.</p>
+<h3>Transformed-output release scope</h3>
+<p>The project author confirmed clearance to publish these ten selected transformed
+outputs on October 12, 2026. This permission is scoped to this gallery; it does not
+release the reference-voice pool or establish unrestricted rights for other outputs.
+Upstream dataset rights and notices remain applicable. The repository's Apache-2.0
+software license does not relicense these audio recordings. No OpenSwara reference
+clips, private clinical recordings, reviewer exports, or access codes are included.</p></main></div></body></html>

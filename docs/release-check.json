@@ -1,9 +1,9 @@
 {
   "release": "0.2.0",
-  "date": "2026-10-09",
+  "date": "2026-10-12",
   "license": "Apache-2.0 (author-approved)",
   "tests": {
-    "passed": 179,
+    "passed": 187,
     "skipped": 0
   },
   "checks": [
@@ -22,5 +22,28 @@
     "sha256": "3131f6a3bd645684824f56f475f528744c93ddd48cd47d668c74b9ebe6633983"
   },
   "gpu_model_execution_tested_in_this_release": false,
-  "publication_model_results_changed": false
+  "publication_model_results_changed": false,
+  "audio_gallery": {
+    "pairs": 10,
+    "files": 20,
+    "datasets": {
+      "PriMock57": 3,
+      "Fareez": 4,
+      "SIMSAMU": 3
+    },
+    "languages": {
+      "English": 7,
+      "French": 3
+    },
+    "manifest": "docs/assets/audio/examples.json",
+    "author_clearance_date": "2026-10-12",
+    "checks": [
+      "Exact reconstructed WAV checksums match frozen lineage",
+      "All MP3 checksums and complete-file decodes verified",
+      "Positive durations and non-silence for all twenty files",
+      "No gallery trimming, gain adjustment, silence removal, or speed change",
+      "All twenty browser players load with positive durations and no media errors",
+      "Browser playback, seek, auto-pause, filter and responsive checks"
+    ]
+  }
 }

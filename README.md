@@ -5,7 +5,7 @@
 
 **Oracle Health AI** · Research framework
 
-[Quick start](#start-in-two-minutes) · [Documentation](https://spraphul.github.io/aegisvox/) · [Architecture](docs/guides/architecture.md) · [Watch the silent film](docs/assets/aegisvox-demo.mp4) · [Evaluation](docs/guides/evaluation.md)
+[Quick start](#start-in-two-minutes) · [Documentation](https://spraphul.github.io/aegisvox/) · [Architecture](docs/guides/architecture.md) · [Listen to 10 full audio pairs](https://spraphul.github.io/aegisvox/#listen) · [Watch the silent film](docs/assets/aegisvox-demo.mp4) · [Evaluation](docs/guides/evaluation.md)
 
 [![Python](https://img.shields.io/badge/python-3.10%2B-9FE8D5?style=flat-square&labelColor=141B1E)](pyproject.toml)
 [![License](https://img.shields.io/badge/license-Apache--2.0-C6ACE7?style=flat-square&labelColor=141B1E)](LICENSE)
@@ -35,6 +35,15 @@ text conditioning. Neither renderer is the framework itself.
 **Research software, not a de-identification guarantee.** Conversion can leave speaker
 linkage, planned edits can fail, and a detector can miss identifiers. Do not release
 clinical recordings based on this software's output alone.
+
+## Listen to complete conversations
+
+[Ten original/final audio pairs](https://spraphul.github.io/aegisvox/#listen) span
+PriMock57, Fareez, and SIMSAMU, with English and French recordings from roughly
+two to fifteen minutes. Each final recording is the reconstructed output of
+SeedVC conversion and F5-TTS complete-turn editing, not an intermediate stage.
+These are curated demonstrations, not a performance estimate or a privacy guarantee.
+See [selection and attribution](docs/guides/audio-examples.md) for the exact scope.
 
 ## Start in two minutes
 
