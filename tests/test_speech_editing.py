@@ -291,8 +291,10 @@ def test_speech_editing_parallel_workers_assign_devices_and_resume_existing(tmp_
         "strategy": "job_threadpool_preserve_order",
         "resume_existing": True,
     }
-    # Existing edit_0002 is not synthesized again; the two generated jobs get their round-robin devices.
-    assert [call["edit_id"] for call in backend.calls] == ["edit_0001", "edit_0003"]
+    # Worker invocation order is scheduler-dependent. The returned jobs must
+    # retain source order, and the existing edit must not be synthesized again.
+    assert sorted(call["edit_id"] for call in backend.calls) == ["edit_0001", "edit_0003"]
+    assert [job["edit_id"] for job in payload["jobs"]] == ["edit_0001", "edit_0002", "edit_0003"]
     assert {call["cuda_visible_devices"] for call in backend.calls} == {"0"}
     assert payload["jobs"][1]["resumed_from_existing_output"] is True
     assert store.exists(final_uri)
