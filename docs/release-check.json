@@ -3,8 +3,9 @@
   "date": "2026-10-12",
   "license": "Apache-2.0 (author-approved)",
   "tests": {
-    "passed": 187,
-    "skipped": 0
+    "passed": 190,
+    "skipped": 0,
+    "checked": "2026-10-23"
   },
   "checks": [
     "Editable installation in an isolated environment",
@@ -16,10 +17,12 @@
     "Browser visual inspection of homepage and guide layouts"
   ],
   "video": {
-    "duration_seconds": 78,
-    "audio_streams": 0,
-    "file": "docs/assets/aegisvox-demo.mp4",
-    "sha256": "3131f6a3bd645684824f56f475f528744c93ddd48cd47d668c74b9ebe6633983"
+    "duration_seconds": 150.9,
+    "audio_streams": 1,
+    "sha256": "a43681e439900030339c6ff407457c7ae2af6c76c387b5b61bb8878104a43aae",
+    "stock_photo_included": false,
+    "file": "docs/assets/aegisvox-clinical-speech-public-v6.mp4",
+    "updated": "2026-10-23"
   },
   "gpu_model_execution_tested_in_this_release": false,
   "publication_model_results_changed": false,
@@ -45,5 +48,12 @@
       "All twenty browser players load with positive durations and no media errors",
       "Browser playback, seek, auto-pause, filter and responsive checks"
     ]
-  }
+  },
+  "previous_video": {
+    "duration_seconds": 78,
+    "audio_streams": 0,
+    "file": "docs/assets/aegisvox-demo.mp4",
+    "sha256": "3131f6a3bd645684824f56f475f528744c93ddd48cd47d668c74b9ebe6633983"
+  },
+  "documentation_update": "2026-10-23"
 }

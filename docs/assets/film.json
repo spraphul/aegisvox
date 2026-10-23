@@ -1,0 +1,43 @@
+{
+  "version": 6,
+  "updated": "2026-10-23",
+  "file": "aegisvox-clinical-speech-public-v6.mp4",
+  "poster": "film-poster.jpg",
+  "sha256": "a43681e439900030339c6ff407457c7ae2af6c76c387b5b61bb8878104a43aae",
+  "bytes": 28856579,
+  "duration_seconds": 150.9,
+  "frames": 4527,
+  "width": 1920,
+  "height": 1080,
+  "audio_streams": 1,
+  "narration": "Synthetic female voice",
+  "subtitles_burned": false,
+  "stock_photo_included": false,
+  "autoplay": false,
+  "chapters": [
+    {
+      "label": "01 \u00b7 Clinical conversations",
+      "start": 0
+    },
+    {
+      "label": "02 \u00b7 Partial solutions",
+      "start": 16.72
+    },
+    {
+      "label": "03 \u00b7 Preserve delivery",
+      "start": 43.42999999999999
+    },
+    {
+      "label": "04 \u00b7 Separate evidence",
+      "start": 86.14
+    },
+    {
+      "label": "05 \u00b7 Governed use",
+      "start": 119.46000000000002
+    },
+    {
+      "label": "06 \u00b7 See you in Sydney",
+      "start": 141.66666666666666
+    }
+  ]
+}

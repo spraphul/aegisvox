@@ -1,0 +1,29 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Film narration | AegisVox</title><link rel="stylesheet" href="../assets/site.css"></head><body><a class="skip" href="#main">Skip to content</a><header><nav class="nav" aria-label="Primary"><a class="brand" href="../index.html">AegisVox</a><span class="wordmark">Oracle Health AI</span><div class="navlinks"><a href="../index.html">Overview</a><a href="https://github.com/spraphul/aegisvox">GitHub ↗</a></div></nav></header><div class="docs-layout"><nav class="sidebar" aria-label="Guides"><a class="" href="architecture.html">One conversation, two interventions</a><a class="" href="audio-examples.html">Full-conversation listening examples</a><a class="" href="backends.html">Backends and resident workers</a><a class="" href="deployment.html">Deployment and service boundaries</a><a class="" href="evaluation.html">Stage-resolved evaluation</a><a class="active" href="film-transcript.html">Film narration</a><a class="" href="quickstart.html">Start with mechanics, then connect models</a><a class="" href="release-scope.html">Release scope and provenance</a><a class="" href="troubleshooting.html">Troubleshooting</a><a class="" href="turn-contract.html">Complete-turn rendering contract</a></nav><main id="main" class="article"><div class="title-rule"></div><h1>Film narration</h1>
+<p>The narration of the 2:31 AegisVox illustrated overview. Voices, waveforms and clinical scenes explain the design; they are not patient recordings or measured model outputs.</p>
+<p><a href="../index.html#film">Watch the film</a>. No subtitles are burned into the video.</p>
+<h2>0:00 · Clinical conversations</h2>
+<p>Clinical conversations reveal identity through words and voices. But they also carry meaning, accent, pitch, pauses, breathing and hesitation. The challenge is to protect identity without losing useful context.</p>
+<h2>0:17 · Protecting only the words</h2>
+<p>Masking a transcript leaves the audio exposed. Muting identifiers can interrupt delivery, while the original voice remains.</p>
+<h2>0:27 · Changing only the voice</h2>
+<p>Changing only the voice leaves spoken names and locations in the conversation.</p>
+<h2>0:33 · Regenerating the conversation</h2>
+<p>Regenerating everything from text can sound fluent. But the original pauses, breaths and expression must be recreated.</p>
+<h2>0:44 · Consistent voice conversion</h2>
+<p>AegisVox separates voice identity from spoken identifiers. Each speaker receives one consistent surrogate voice. Voice conversion works from the original speech, with natural accent, pitch, pauses, breathing and hesitation as preservation goals.</p>
+<h2>1:02 · Document-consistent replacement</h2>
+<p>Identifying words receive consistent replacements in the source language. Repeated mentions use the same substitute.</p>
+<h2>1:11 · Complete-turn rendering</h2>
+<p>Speech editing uses the converted turn as a voice and style reference. Only complete turns with planned substitutions are rendered again. They rejoin the other converted turns, preserving the surrounding conversation.</p>
+<h2>1:26 · Lexical privacy</h2>
+<p>Then, three separate questions. Were identifiers found, were replacements spoken, and did any originals remain?</p>
+<h2>1:36 · Speaker linkability</h2>
+<p>Can an attacker still link the transformed voice to its original speaker?</p>
+<h2>1:42 · Clinical preservation</h2>
+<p>Did clinical meaning survive? What happened to corrections, speaker roles and useful acoustic cues?</p>
+<h2>1:51 · Separate objectives</h2>
+<p>Measure these outcomes separately, at the relevant stages. A different voice and fluent words are not enough.</p>
+<h2>2:00 · Governed use</h2>
+<p>Transformation is one layer of protection, not permission to share freely. Keep source audio within a protected workspace. Record its lineage and review residual risk. Hold uncertain outputs for review. Release approved audio only for an agreed purpose, with restricted access and continued monitoring.</p>
+<h2>2:26 · Closing invitation</h2>
+<p>See you at ML4H twenty twenty-six, in Sydney.</p></main></div></body></html>

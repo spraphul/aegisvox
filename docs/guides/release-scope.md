@@ -7,8 +7,9 @@
 - A new documented complete-turn assembly API and CLI with CPU-only mechanics tests.
 - A real-model F5-TTS adapter example adapted from the research runner, not GPU-tested
   as part of this packaging task.
-- The approved 78-second silent AegisVox technical demonstration, its existing cover image,
-  and a visual documentation site. No stock-photo conference outro is bundled.
+- The approved 151-second narrated AegisVox overview, its cover image, a text transcript,
+  and a visual documentation site. Its closing uses original animation only; no Sydney
+  stock photograph is bundled. The earlier silent technical film remains as an archive.
 
 - Ten author-cleared original/final full-conversation demo pairs, with exact-file
   checksums, source attribution, and licenses. See [listening examples](audio-examples.md).

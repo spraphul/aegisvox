@@ -1,5 +1,11 @@
 # Changelog
 
+## Documentation update · 2026-10-23
+
+- Replace the homepage and README film with the photo-free 151-second narrated overview.
+- Add chapter navigation, explicit sound controls, downloadable MP4 and a text transcript.
+- Keep the older silent film archived; no software behaviour or measured results change.
+
 ## 0.2.0
 
 - Public framework packaging with an explicit CLI and documented service interfaces.

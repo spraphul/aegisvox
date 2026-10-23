@@ -5,13 +5,15 @@
 
 **Oracle Health AI** · Research framework
 
-[Quick start](#start-in-two-minutes) · [Documentation](https://spraphul.github.io/aegisvox/) · [Architecture](docs/guides/architecture.md) · [Listen to 10 full audio pairs](https://spraphul.github.io/aegisvox/#listen) · [Watch the silent film](docs/assets/aegisvox-demo.mp4) · [Evaluation](docs/guides/evaluation.md)
+[Quick start](#start-in-two-minutes) · [Documentation](https://spraphul.github.io/aegisvox/) · [Architecture](docs/guides/architecture.md) · [Listen to 10 full audio pairs](https://spraphul.github.io/aegisvox/#listen) · [Watch the narrated film](https://spraphul.github.io/aegisvox/#film) · [Evaluation](docs/guides/evaluation.md)
 
 [![Python](https://img.shields.io/badge/python-3.10%2B-9FE8D5?style=flat-square&labelColor=141B1E)](pyproject.toml)
 [![License](https://img.shields.io/badge/license-Apache--2.0-C6ACE7?style=flat-square&labelColor=141B1E)](LICENSE)
 [![Tests](https://github.com/spraphul/aegisvox/actions/workflows/tests.yml/badge.svg)](https://github.com/spraphul/aegisvox/actions/workflows/tests.yml)
 
-[![AegisVox: two interventions, one conversation](docs/assets/hero.png)](docs/assets/aegisvox-demo.mp4)
+[![Watch AegisVox: clinical speech privacy and preservation](docs/assets/film-poster.jpg)](https://spraphul.github.io/aegisvox/#film)
+
+**[Watch the 2:31 narrated overview](https://spraphul.github.io/aegisvox/#film)** · [Download MP4](docs/assets/aegisvox-clinical-speech-public-v6.mp4) · [Read the narration](docs/guides/film-transcript.md)
 
 *Speech carries more than words: delivery, pauses, accents, speaker roles, and the rhythm of an interaction.*
 
