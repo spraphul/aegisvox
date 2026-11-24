@@ -130,7 +130,7 @@ keeps the measurement implementations separate from the transformation path.
 | :--- | :--- | :--- |
 | [Installation and first run](docs/guides/quickstart.md) | [System architecture](docs/guides/architecture.md) | [Contributing](CONTRIBUTING.md) |
 | [Backends and resident workers](docs/guides/backends.md) | [Evaluation contracts](docs/guides/evaluation.md) | [Security](SECURITY.md) |
-| [Complete-turn API](docs/guides/turn-contract.md) | [Data and model access](DATA.md) | [Citation](CITATION.cff) |
+| [Complete-turn API](docs/guides/turn-contract.md) | [Data and model access](DATA.md) | [Paper citation](#citation) |
 | [Deployment boundaries](docs/guides/deployment.md) | [Troubleshooting](docs/guides/troubleshooting.md) | [License](LICENSE) |
 
 To preview the designed documentation site locally:
@@ -141,6 +141,24 @@ python scripts/build_docs.py
 python -m http.server 8765 --bind 127.0.0.1 --directory docs
 # Open http://127.0.0.1:8765/
 ```
+
+## Citation
+
+If you use AegisVox in your research, please cite the [ML4H 2026 paper](https://arxiv.org/abs/2610.14643).
+
+```bibtex
+@inproceedings{singh2026aegisvox,
+  title     = {{AegisVox}: Factorized Privacy and Clinical Preservation for Long-Form Speech},
+  author    = {Singh, Praphul and Agarwal, Akshat and Ghosh, Ratul and Kanuga, Aashna
+               and Khatwani, Devashish and Dwarakanath, Anurag and Gadde, Sri
+               and Kenthapadi, Krishnaram},
+  booktitle = {Machine Learning for Health (ML4H)},
+  year      = {2026},
+  url       = {https://arxiv.org/abs/2610.14643}
+}
+```
+
+To cite the software release, see [CITATION.cff](CITATION.cff).
 
 ## Credits
 
