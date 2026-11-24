@@ -7,6 +7,12 @@ transcript/replacement artifacts, speaker assignments, and stage-specific measur
 The framework seeks to change vocal identity and protected lexical content while retaining
 useful surrounding evidence. Preservation must be measured, not assumed.
 
+[![AegisVox assigns one surrogate voice per speaker, converts every turn, and rerenders only turns with planned identifier replacements.](../assets/aegisvox-figure-1.svg)](../assets/aegisvox-figure-1.svg)
+
+**Figure 1.** Speaker colors track each speaker through voice assignment, turn conversion,
+and reconstruction. Amber marks the identifier replacement path. Select the
+diagram to view it at full size. [AegisVox, ML4H 2026](https://arxiv.org/abs/2610.14643v2).
+
 ## Identity transformation
 
 1. **Diarization and transcription** estimate who spoke when and what was said. Errors
